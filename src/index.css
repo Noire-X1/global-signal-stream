@@ -1,105 +1,241 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* ============================================================
+   NOIRE NEWS — ABSOLUTE DARK MODE ENFORCEMENT
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: #000000 !important;
+  background: #000000 !important;
+  color-scheme: dark;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: #000000 !important;
+  background: #000000 !important;
+  color: #FFFFFF;
+  min-height: 100%;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'DM Mono', monospace;
+  margin: 0;
+  padding: 0;
+}
+
+#root,
+main {
+  background-color: #000000 !important;
+  min-height: 100vh;
+}
+
+canvas {
+  display: block;
+  background: #000000 !important;
+}
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 2%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 2%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 271 91% 65%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 271 30% 20%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 271 30% 20%;
+    --muted-foreground: 240 4% 66%;
+    --accent: 217 91% 60%;
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 271 30% 20%;
+    --input: 271 30% 20%;
+    --ring: 271 91% 65%;
+    --radius: 2px;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --color-void: #050505;
+    --color-neon: #A855F7;
+    --color-neon-blue: #3B82F6;
+    --color-neon-lilac: #D8B4FE;
+    --color-silk: #FFFFFF;
+    --color-mist: #A1A1AA;
+    --glow-neon: 0 0 18px rgba(168,85,247,0.7),
+                 0 0 45px rgba(168,85,247,0.35),
+                 0 0 90px rgba(168,85,247,0.15);
+    --glow-blue: 0 0 18px rgba(59,130,246,0.6),
+                 0 0 50px rgba(59,130,246,0.25);
   }
+}
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+::selection {
+  background: rgba(168, 85, 247, 0.35);
+  color: #FFFFFF;
+}
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+::-webkit-scrollbar { width: 2px; height: 2px; }
+::-webkit-scrollbar-track { background: #000000; }
+::-webkit-scrollbar-thumb { background: #A855F7; border-radius: 2px; }
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+.neon-glow { box-shadow: var(--glow-neon); }
+.neon-text-glow {
+  text-shadow: 0 0 12px rgba(168,85,247,0.9),
+               0 0 30px rgba(168,85,247,0.5);
+}
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+/* ── Feed glow utilities ───────────────────────────────────── */
+.glow-purple-sm {
+  box-shadow: 0 0 8px rgba(168,85,247,0.5),
+              0 0 20px rgba(168,85,247,0.2);
+}
+.glow-purple-md {
+  box-shadow: 0 0 12px rgba(168,85,247,0.6),
+              0 0 35px rgba(168,85,247,0.25),
+              0 0 70px rgba(168,85,247,0.1);
+}
+.glow-text-purple {
+  text-shadow: 0 0 10px rgba(168,85,247,0.9),
+               0 0 25px rgba(168,85,247,0.5);
+}
+.glow-text-white {
+  text-shadow: 0 0 20px rgba(255,255,255,0.4);
+}
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+/* ── Feed card glass surface ───────────────────────────────── */
+.card-glass {
+  background: rgba(0, 0, 0, 0.50);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(168, 85, 247, 0.18);
+  border-radius: 3px;
+}
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+.card-glass-active {
+  border-color: rgba(168, 85, 247, 0.55);
+  box-shadow: 0 0 0 1px rgba(168,85,247,0.12),
+              0 0 25px rgba(168,85,247,0.18),
+              0 0 60px rgba(168,85,247,0.08);
+}
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
+.feed-bottom-fade {
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.95) 0%,
+    transparent 100%
+  );
 }
 
 @layer base {
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* ── HUD Gap Effect ──────────────────────────────────────────── */
+.hub-container {
+  background: transparent !important;
+  position: relative;
+  z-index: 10;
+}
+
+.hub-container::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(168, 85, 247, 0.012) 2px,
+    rgba(168, 85, 247, 0.012) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Story ring gradient border ──────────────────────────────── */
+.story-ring {
+  background: linear-gradient(#050505, #050505) padding-box,
+              linear-gradient(135deg, #A855F7, #3B82F6, #D8B4FE) border-box;
+  border: 2px solid transparent;
+  border-radius: 50%;
+}
+
+/* ── Search bar glow ─────────────────────────────────────────── */
+.search-glow:focus-within {
+  box-shadow: 0 0 0 1px rgba(168,85,247,0.3),
+              0 0 20px rgba(168,85,247,0.2),
+              0 0 50px rgba(168,85,247,0.08);
+}
+
+/* ── Category tab active ─────────────────────────────────────── */
+.tab-active {
+  background: #A855F7 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 0 12px rgba(168,85,247,0.7),
+              0 0 30px rgba(168,85,247,0.3);
+}
+
+/* ── News image overlay ──────────────────────────────────────── */
+.img-overlay {
+  background: linear-gradient(
+    to bottom,
+    transparent 40%,
+    rgba(0, 0, 0, 0.5) 70%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+}
+
+/* ── Card hover lift ─────────────────────────────────────────── */
+.news-card {
+  transition: transform 0.28s cubic-bezier(0.22,1,0.36,1),
+              border-color 0.28s ease,
+              box-shadow 0.28s ease;
+}
+.news-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  border-color: rgba(168, 85, 247, 0.55) !important;
+  box-shadow: 0 0 25px rgba(168,85,247,0.18),
+              0 16px 50px rgba(0,0,0,0.6) !important;
+}
+
+/* ── Shimmer skeleton ────────────────────────────────────────── */
+.shimmer {
+  background: linear-gradient(90deg,
+    rgba(168,85,247,0.05) 0%,
+    rgba(168,85,247,0.12) 50%,
+    rgba(168,85,247,0.05) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Pulse dot ───────────────────────────────────────────────── */
+.pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.45; transform: scale(0.75); }
 }
