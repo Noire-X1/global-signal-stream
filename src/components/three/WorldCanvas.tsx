@@ -35,17 +35,7 @@ const WorldCanvas = ({ onMoteClick }: WorldCanvasProps) => {
             color="#1E1040"
           />
           <GlobeMesh />
-          <LightMotes onMoteClick={onMoteClick} />
-          <EffectComposer>
-            <Bloom
-              luminanceThreshold={0.12}
-              luminanceSmoothing={0.9}
-              intensity={1.8}
-              radius={0.85}
-              mipmapBlur
-            />
-          </EffectComposer>
-        </Canvas>
+          <ambientLight intensity={0.3} />
       </Suspense>
     </div>
   );
