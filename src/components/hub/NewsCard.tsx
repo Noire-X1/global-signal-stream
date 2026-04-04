@@ -1,14 +1,12 @@
 import type { NoireArticle } from '@/lib/exa';
 import TopicTag from './TopicTag';
 
-type Props = { article: NoireArticle };
+type Props = { article: NoireArticle; onClick?: () => void };
 
-export default function NewsCard({ article }: Props) {
+export default function NewsCard({ article, onClick }: Props) {
   return (
-    <a
-      href={article.url}
-      target="_blank"
-      rel="noopener noreferrer"
+    <div
+      onClick={onClick}
       className="news-card"
       style={{
         display: 'block', textDecoration: 'none',
@@ -87,6 +85,6 @@ export default function NewsCard({ article }: Props) {
           </p>
         )}
       </div>
-    </a>
+    </div>
   );
 }

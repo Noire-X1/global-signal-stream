@@ -6,6 +6,7 @@ import NewsCard from './NewsCard';
 type Props = {
   articles: NoireArticle[];
   isLoading: boolean;
+  onCardClick?: (article: NoireArticle) => void;
 };
 
 function SkeletonCard() {
@@ -29,7 +30,7 @@ function SkeletonCard() {
   );
 }
 
-function AnimatedCard({ article, index }: { article: NoireArticle; index: number }) {
+function AnimatedCard({ article, index, onClick }: { article: NoireArticle; index: number; onClick?: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { amount: 0.2, once: true });
 
@@ -43,15 +44,14 @@ function AnimatedCard({ article, index }: { article: NoireArticle; index: number
         delay: index * 0.07,
       }}
     >
-      <NewsCard article={article} />
+      <NewsCard article={article} onClick={onClick} />
     </motion.div>
   );
 }
 
-export default function NewsGrid({ articles, isLoading }: Props) {
+export default function NewsGrid({ articles, isLoading, onCardClick }: Props) {
   return (
     <div style={{ marginTop: '32px' }}>
-      {/* Section header */}
       <div style={{
         display: 'flex', alignItems: 'center', gap: '16px',
         marginBottom: '20px',
@@ -69,7 +69,6 @@ export default function NewsGrid({ articles, isLoading }: Props) {
         }} />
       </div>
 
-      {/* Grid */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
@@ -89,7 +88,7 @@ export default function NewsGrid({ articles, isLoading }: Props) {
               </div>
             )
             : articles.map((a, i) => (
-              <AnimatedCard key={a.id} article={a} index={i} />
+              <AnimatedCard key={a.id} article={a} index={i} onClick={() => onCardClick?.(a)} />
             ))
         }
       </div>

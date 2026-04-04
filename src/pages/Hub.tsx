@@ -1,34 +1,45 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
+import { fetchArticles } from '@/lib/exa-client';
 import { fetchNoireArticles, type NoireArticle } from '@/lib/exa';
 import HubHeader from '@/components/hub/HubHeader';
 import LiveBeatsBar from '@/components/hub/LiveBeatsBar';
 import FeatureCard from '@/components/hub/FeatureCard';
 import NewsGrid from '@/components/hub/NewsGrid';
+import IntelModal from '@/components/hub/IntelModal';
 
 export default function HubPage() {
   const [articles, setArticles] = useState<NoireArticle[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('All');
+  const [selectedArticle, setSelectedArticle] = useState<NoireArticle | null>(null);
 
-  const load = useCallback(async (topic: string) => {
+  const load = useCallback(async (query = '', topic = 'All') => {
     setLoading(true);
-    const data = await fetchNoireArticles(topic, 13);
+    // Try live Exa first, fall back to static data
+    let data = await fetchArticles(query, topic, 13);
+    if (data.length === 0) {
+      data = await fetchNoireArticles(topic, 13);
+    }
     setArticles(data);
     setLoading(false);
   }, []);
 
-  useEffect(() => { load('All'); }, [load]);
+  useEffect(() => { load('', 'All'); }, [load]);
 
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
-    load(tab);
+    load('', tab);
   };
 
   const handleSearch = (query: string) => {
     setActiveTab('All');
-    load(query);
+    load(query, 'All');
   };
+
+  const handleCardClick = useCallback((article: NoireArticle) => {
+    setSelectedArticle(article);
+  }, []);
 
   return (
     <motion.div
@@ -56,15 +67,21 @@ export default function HubPage() {
           }} />
         ) : articles[0] ? (
           <div style={{ marginTop: '24px' }}>
-            <FeatureCard article={articles[0]} />
+            <FeatureCard article={articles[0]} onClick={() => handleCardClick(articles[0])} />
           </div>
         ) : null}
 
         <NewsGrid
           articles={loading ? [] : articles.slice(1)}
           isLoading={loading}
+          onCardClick={handleCardClick}
         />
       </div>
+
+      <IntelModal
+        article={selectedArticle}
+        onClose={() => setSelectedArticle(null)}
+      />
     </motion.div>
   );
 }

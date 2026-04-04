@@ -239,3 +239,15 @@ canvas {
   0%, 100% { opacity: 1; transform: scale(1); }
   50%      { opacity: 0.45; transform: scale(0.75); }
 }
+
+/* ── Intel modal scan line ───────────────────────────────────── */
+.intel-scan-line {
+  animation: intel-scan 1.4s ease-in-out infinite;
+}
+
+@keyframes intel-scan {
+  0%   { top: 0%;   opacity: 0; }
+  8%   { opacity: 1; }
+  92%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
