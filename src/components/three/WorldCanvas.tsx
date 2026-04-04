@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import GlobeMesh from "./GlobeMesh";
 import LightMotes from "./LightMotes";
 import type { NewsStory } from "@/data/newsStories";
@@ -29,6 +28,7 @@ const WorldCanvas = ({ onMoteClick }: WorldCanvasProps) => {
           frameloop="always"
           raycaster={{ params: { Points: { threshold: 0.05 } } as any }}
         >
+          <ambientLight intensity={0.3} />
           <pointLight
             position={[0, 8, 0]}
             intensity={0.4}
@@ -36,15 +36,6 @@ const WorldCanvas = ({ onMoteClick }: WorldCanvasProps) => {
           />
           <GlobeMesh />
           <LightMotes onMoteClick={onMoteClick} />
-          <EffectComposer>
-            <Bloom
-              luminanceThreshold={0.12}
-              luminanceSmoothing={0.9}
-              intensity={1.8}
-              radius={0.85}
-              mipmapBlur
-            />
-          </EffectComposer>
         </Canvas>
       </Suspense>
     </div>
