@@ -14,6 +14,7 @@ export type NoireArticle = {
   topicColor: string;
   imageUrl: string;
   highlight: string;
+  highlights: string[];
   summary: string;
   score: number;
 };

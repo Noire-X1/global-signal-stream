@@ -77,6 +77,6 @@ export default function FeatureCard({ article, onClick }: Props) {
           {article.highlight || article.summary}
         </p>
       </div>
-    </a>
+    </div>
   );
 }

@@ -85,6 +85,6 @@ export default function NewsCard({ article, onClick }: Props) {
           </p>
         )}
       </div>
-    </a>
+    </div>
   );
 }
