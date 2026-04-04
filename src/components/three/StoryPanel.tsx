@@ -6,7 +6,7 @@ interface StoryPanelProps {
   onClose: () => void;
 }
 
-const ease = [0.22, 1, 0.36, 1];
+const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
 const StoryPanel = ({ story, onClose }: StoryPanelProps) => {
   return (
