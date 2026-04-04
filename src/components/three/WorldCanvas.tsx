@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import { EffectComposer, Bloom } from "@react-three/postprocessing";
+// postprocessing removed for compatibility
 import GlobeMesh from "./GlobeMesh";
 import LightMotes from "./LightMotes";
 import type { NewsStory } from "@/data/newsStories";
